@@ -24,8 +24,8 @@ def run_batch_audio_pipeline(folder_path: str):
 
     return big_df
 
-real_folder_path = "C:\\Users\\habel\\OneDrive\\Desktop\\UCL\\SDE Anomaly Detection\\Anthem_Segment_Audio"
-fake_folder_path = "C:\\Users\\habel\\OneDrive\\Desktop\\UCL\\SDE Anomaly Detection\\fake_clips\\Chap_All"
+real_folder_path = "\\Real_Anthem_Segment_Audio"
+fake_folder_path = "\\Fake_Anthem_Segment_Audio"
 
 real_features_df = run_batch_audio_pipeline(real_folder_path)
 fake_features_df = run_batch_audio_pipeline(fake_folder_path)
