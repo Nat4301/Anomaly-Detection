@@ -191,12 +191,12 @@ def batch_segment_audio_from_json(json_path, audio_folder, output_folder):
     print(f"✅ Done: all segments saved to {output_folder}")
 
 
-output_folder = "C:\\Users\\habel\\OneDrive\\Desktop\\UCL\\SDE Anomaly Detection\\Anthem_Segment_Audio"
+output_folder = "\\Anthem_Segment_Audio"
 
 
 def main():
 
-    directory = 'C:\\Users\\habel\\OneDrive\\Desktop\\UCL\\SDE Anomaly Detection\\anthem_1308_librivox'
+    directory = '\\anthem_1308_librivox'
 
     if not os.path.isdir(directory):
         print("  Not a directory")
@@ -219,9 +219,9 @@ def main():
     print(f"\n  Finished. JSON written to {out_path}")
 
     batch_segment_audio_from_json(
-        json_path="C:\\Users\\habel\\OneDrive\\Desktop\\UCL\\SDE Anomaly Detection\\anthem_transcriptions.json",
-        audio_folder="C:\\Users\\habel\\OneDrive\\Desktop\\UCL\\SDE Anomaly Detection\\anthem_1308_librivox",
-        output_folder="C:\\Users\\habel\\OneDrive\\Desktop\\UCL\\SDE Anomaly Detection\\Anthem_Segment_Audio"
+        json_path="\\anthem_transcriptions.json",
+        audio_folder="\\anthem_1308_librivox",
+        output_folder="\\Anthem_Segment_Audio"
     )
 if __name__ == "__main__":
     main()
