@@ -11,7 +11,10 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, classification_report
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+import shap
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 def build_kde_estimators(df_real, df_fake):
     features = [col for col in df_real.columns if col not in ["filename"]]
@@ -86,77 +89,6 @@ def classify_with_kde(file_path, kde_real, kde_fake, features):
 
     except Exception as e:
         return {'error': str(e)}
-
-
-def segment_and_save_audio_from_json(json_path, folder_path, output_folder):
-    os.makedirs(output_folder, exist_ok=True)
-
-    # Load JSON data
-    with open(json_path, "r") as f:
-        data = json.load(f)
-
-    for chapter_key, chapter_info in data.items():
-        filename = chapter_info["filename"]
-        file_path = os.path.join(folder_path, filename)
-
-        if not os.path.exists(file_path):
-            print(f"File {file_path} not found. Skipping.")
-            continue
-
-        segments = chapter_info.get("segments", [])
-        total_duration = chapter_info.get("total_duration_seconds")
-
-        if total_duration is None:
-            print(f"Missing total_duration_seconds for {filename}. Skipping chapter.")
-            continue
-
-        try:
-            audio = AudioSegment.from_file(file_path)
-        except Exception as e:
-            print(f"Could not load audio file {file_path}: {e}")
-            continue
-
-        for i, segment in enumerate(tqdm(segments, desc=f"Segmenting {filename}")):
-            try:
-                start_sec = segment["starting_time_seconds"]
-                text = segment.get("text", "")
-
-                end_sec = (
-                    segments[i + 1]["starting_time_seconds"]
-                    if i + 1 < len(segments)
-                    else total_duration
-                )
-
-                if end_sec <= start_sec:
-                    print(f"Invalid segment time for segment {i} in {filename}. Skipping.")
-                    continue
-
-                start_ms = int(start_sec * 1000)
-                end_ms = int(end_sec * 1000)
-
-                segment_audio = audio[start_ms:end_ms]
-
-                output_filename = f"{os.path.splitext(filename)[0]}_segment{i}.wav"
-                output_path = os.path.join(output_folder, output_filename)
-
-                segment_audio.export(output_path, format="wav")
-
-                print(f"Saved: {output_filename} ({start_sec:.2f}s → {end_sec:.2f}s, {len(segment_audio)}ms)")
-
-            except Exception as e:
-                print(f"Error processing segment {i} of {filename}: {e}")
-
-    print(f"All segments saved to {output_folder}")
-
-
-import pandas as pd
-import numpy as np
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
-import shap
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 
 def train_audio_classifier(real_df: pd.DataFrame, fake_df: pd.DataFrame):
