@@ -1,16 +1,6 @@
 # Anomaly Detection from Stochastic Differential Equations  
 
-## Contents  
-- 0 INTRODUCTION  
-- 1 STOCHASTIC DIFFERENTIAL EQUATIONS  
-- 1.1 PROCESSING  
-- 1.1.1 MODELS  
-- 2 CONCLUSION  
-- FIGURES  
-
----
-
-## 0 INTRODUCTION  
+## INTRODUCTION  
 This project develops an anomaly detection pipeline for synthetic audio, motivated by the rise of generative AI and its potential misuse. We treat detection as a time-series anomaly problem, combining:  
 - **SDE-based modeling** to capture temporal dynamics  
 - **Spectral features** (Mel spectrograms, MFCCs, etc.)  
@@ -20,7 +10,7 @@ This project develops an anomaly detection pipeline for synthetic audio, motivat
 
 ---
 
-## 1 STOCHASTIC DIFFERENTIAL EQUATIONS  
+## STOCHASTIC DIFFERENTIAL EQUATIONS  
 SDEs describe processes influenced by **deterministic drift** and **stochastic noise**:  
 
 \[
@@ -35,7 +25,7 @@ Each **SDE realization** is a simulated trajectory, solved numerically (e.g., Eu
 
 ---
 
-## 1.1 PROCESSING  
+## PROCESSING  
 Pipeline:  
 1. **Waveform → Mel spectrogram** (time–frequency representation)  
 2. **Feature extraction**: statistical descriptors (range, smoothness, increments)  
@@ -46,7 +36,7 @@ This produces a **high-dimensional feature set** mixing deterministic + stochast
 
 ---
 
-### 1.1.1 MODELS  
+### MODELS  
 Two detection approaches:  
 
 **Rule-based (statistical):**  
@@ -61,7 +51,7 @@ Two detection approaches:
 
 ---
 
-## 2 CONCLUSION  
+## CONCLUSION  
 We propose a hybrid framework for synthetic audio detection:  
 - SDE residual analysis for mathematical rigor  
 - Spectral + statistical features for signal richness  
